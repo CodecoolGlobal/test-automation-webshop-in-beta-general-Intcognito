@@ -20,6 +20,8 @@ public class LoginPage {
     private WebElement loginButton;
     @FindBy(id = "react-burger-menu-btn")
     private WebElement menuButton;
+    @FindBy(xpath = "//div[@class = 'error-message-container error']")
+    private WebElement loginErrorMessage;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -34,9 +36,27 @@ public class LoginPage {
         submitCredentials();
     }
 
-    public boolean checkIfLoginSuccessful() {
+    public boolean checkIfLoginIsSuccessful() {
         wait.until(ExpectedConditions.visibilityOf(menuButton));
         return menuButton.isDisplayed();
+    }
+
+    public boolean checkIfLoginIsUnsuccessful() {
+        return (checkIfLoginPageIsShown() && checkIfErrorMessageIsShown());
+    }
+
+    public boolean checkIfLogoutIsSuccessful() {
+        return checkIfLoginPageIsShown();
+    }
+
+    private boolean checkIfLoginPageIsShown() {
+        wait.until(ExpectedConditions.visibilityOf(loginButton));
+        return loginButton.isDisplayed();
+    }
+
+    private boolean checkIfErrorMessageIsShown() {
+        wait.until(ExpectedConditions.visibilityOf(loginErrorMessage));
+        return loginErrorMessage.isDisplayed();
     }
 
     private void fillUsername(String username) {

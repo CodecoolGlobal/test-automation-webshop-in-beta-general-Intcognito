@@ -1,11 +1,10 @@
 package loginTests;
 
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
+import pages.MainPage;
 import pages.LoginPage;
 import utils.Util;
 
@@ -15,20 +14,44 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTests {
     private LoginPage loginPage;
-
-    @BeforeEach
-    public void setUp() {
-    }
+    private MainPage mainPage;
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLogin(WebDriver driver) throws MalformedURLException {
+    public void testLoginWithValidUser(WebDriver driver) throws MalformedURLException {
         loginPage = new LoginPage(driver);
 
         loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
 
-        boolean actual = loginPage.checkIfLoginSuccessful();
+        boolean actual = loginPage.checkIfLoginIsSuccessful();
+        assertTrue(actual);
 
+        driver.quit();
+    }
+
+    @ParameterizedTest
+    @MethodSource("utils.Util#driverProvider")
+    public void testLoginWithInvalidUser(WebDriver driver) throws MalformedURLException {
+        loginPage = new LoginPage(driver);
+
+        loginPage.login(System.getenv("LOCKED_OUT_USER"), System.getenv("PASSWORD"));
+
+        boolean actual = loginPage.checkIfLoginIsUnsuccessful();
+        assertTrue(actual);
+
+        driver.quit();
+    }
+
+    @ParameterizedTest
+    @MethodSource("utils.Util#driverProvider")
+    public void testLogoutFunction(WebDriver driver) throws MalformedURLException {
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+
+        loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
+        mainPage.logout();
+
+        boolean actual = loginPage.checkIfLogoutIsSuccessful();
         assertTrue(actual);
 
         driver.quit();
@@ -36,16 +59,14 @@ public class LoginTests {
 
     @Test
     public void testEdgeLogin() throws MalformedURLException {
-        loginPage = new LoginPage(Util.setEdgeCapability());
+        WebDriver driver = Util.setEdgeCapability();
+        loginPage = new LoginPage(driver);
 
         loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
 
-        boolean actual = loginPage.checkIfLoginSuccessful();
-
+        boolean actual = loginPage.checkIfLoginIsSuccessful();
         assertTrue(actual);
-    }
 
-    @AfterEach
-    public void tearDown() {
+        driver.quit();
     }
 }
