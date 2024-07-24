@@ -13,18 +13,18 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CartTests {
+public class AddToCartTests {
     WebDriver firefoxDriver = Util.setFirefoxCapability();
     LoginPage loginPage = new LoginPage(firefoxDriver);
     MainPage mainPage = new MainPage(firefoxDriver);
     CartPage cartPage = new CartPage(firefoxDriver);
 
-    public CartTests() throws MalformedURLException {
+    public AddToCartTests() throws MalformedURLException {
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void addOneProductToCart(String username, String password) {
+    public void addOneProductToCartTest(String username, String password) {
         int numberOfProducts = 1;
         loginPage.login(username, password);
 
@@ -37,7 +37,7 @@ public class CartTests {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void addThreeProductsToCart(String username, String password) {
+    public void addThreeProductsToCartTest(String username, String password) {
         int numberOfProducts = 3;
         loginPage.login(username, password);
 

@@ -17,11 +17,13 @@ public class CartPage {
     private WebElement cartLink;
     @FindBy(xpath = "//button[text() = 'Remove']")
     private WebElement removeButton;
+    @FindBy(id = "checkout")
+    private WebElement checkoutButton;
     @FindBy(xpath = "//div[@class = 'cart_item']")
     private List<WebElement> cartItems;
 
 
-    public CartPage (WebDriver driver) {
+    public CartPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(System.getenv("WAIT_DURATION"))));
         PageFactory.initElements(driver, this);
@@ -33,8 +35,15 @@ public class CartPage {
     }
 
     public int countNumberOfProductsInCart() {
-        wait.until(ExpectedConditions.visibilityOf(removeButton));
+        wait.until(ExpectedConditions.visibilityOf(checkoutButton));
         return cartItems.size();
+    }
+
+    public void removeProductsFromCart(int quantityToRemove) {
+        for (int i = 0; i < quantityToRemove; i++) {
+            wait.until(ExpectedConditions.visibilityOf(removeButton));
+            removeButton.click();
+        }
     }
 
 }
