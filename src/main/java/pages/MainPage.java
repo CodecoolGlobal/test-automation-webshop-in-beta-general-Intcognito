@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,10 +23,21 @@ public class MainPage {
     private WebElement sidebarMenuButton;
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutButton;
+    @FindBy(xpath = "//div[@class = 'inventory_item_name ']")
+    private WebElement firstProductName;
+    @FindBy(xpath = "//div[@class = 'inventory_item_price']")
+    private WebElement firstProductPrice;
+    @FindBy(xpath = "//div[@class = 'inventory_details_container']")
+    private WebElement productDetails;
+    @FindBy(xpath = "//div[@class = 'inventory_details_name large_size']")
+    private WebElement productDetailsName;
+    @FindBy(xpath = "//div[@class = 'inventory_details_price']")
+    private WebElement productDetailsPrice;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        PageFactory.initElements(driver, this);
     }
 
     public void logout() {
@@ -34,6 +46,42 @@ public class MainPage {
 
         wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
         logoutButton.click();
+    }
+
+    public void clickOnFirstItem() {
+        wait.until(ExpectedConditions.elementToBeClickable(firstProductName));
+        System.out.println("CLICKING ON PRODUCT");
+        firstProductName.click();
+    }
+
+    public boolean checkIfDetailsAreShown() {
+        wait.until(ExpectedConditions.visibilityOf(productDetails));
+        return productDetails.isDisplayed();
+    }
+
+    public String getProductPrice() {
+        wait.until(ExpectedConditions.visibilityOf(firstProductPrice));
+        return firstProductPrice.getText();
+    }
+
+    public String getProductDetailsPrice() {
+        wait.until(ExpectedConditions.visibilityOf(productDetailsPrice));
+        return productDetailsPrice.getText();
+    }
+
+    public String getProductDetailsName() {
+        wait.until(ExpectedConditions.visibilityOf(productDetailsName));
+        return productDetailsName.getText();
+    }
+
+    public String getFirstProductName() {
+        wait.until(ExpectedConditions.visibilityOf(firstProductName));
+        return firstProductName.getText();
+    }
+
+    public String getFirstProductPrice() {
+        wait.until(ExpectedConditions.visibilityOf(firstProductPrice));
+        return firstProductPrice.getText();
     }
 
     private List<WebElement> getAllOptions(){
