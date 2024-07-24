@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BasePage {
+public class MainPage {
     private WebDriver driver;
     private WebDriverWait wait;
     @FindBy(className = "product_sort_container")
@@ -23,7 +23,7 @@ public class BasePage {
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutButton;
 
-    public BasePage(WebDriver driver) {
+    public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
     }

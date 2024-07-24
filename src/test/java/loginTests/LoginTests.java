@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
-import pages.BasePage;
+import pages.MainPage;
 import pages.LoginPage;
 import utils.Util;
 
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTests {
     private LoginPage loginPage;
-    private BasePage basePage;
+    private MainPage mainPage;
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
@@ -46,10 +46,10 @@ public class LoginTests {
     @MethodSource("utils.Util#driverProvider")
     public void testLogoutFunction(WebDriver driver) throws MalformedURLException {
         loginPage = new LoginPage(driver);
-        basePage = new BasePage(driver);
+        mainPage = new MainPage(driver);
 
         loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
-        basePage.logout();
+        mainPage.logout();
 
         boolean actual = loginPage.checkIfLogoutIsSuccessful();
         assertTrue(actual);
