@@ -31,12 +31,10 @@ public class LoginPage {
 
     public void login(String username, String password) {
         driver.get(System.getenv("BASE_URL"));
-        System.out.println("NAVIGATED TO PAGE");
+        System.out.println("Navigated to webshop");
         fillUsername(username);
         fillPassword(password);
         submitCredentials();
-        wait.until(ExpectedConditions.visibilityOf(menuButton));
-        System.out.println("LOGGED IN");
     }
 
     public boolean checkIfLoginIsSuccessful() {
@@ -45,6 +43,7 @@ public class LoginPage {
     }
 
     public boolean checkIfLoginIsUnsuccessful() {
+        wait.until(ExpectedConditions.visibilityOf(loginErrorMessage));
         return (checkIfLoginPageIsShown() && checkIfErrorMessageIsShown());
     }
 

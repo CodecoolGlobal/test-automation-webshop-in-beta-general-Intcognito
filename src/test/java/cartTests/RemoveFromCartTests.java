@@ -29,7 +29,7 @@ public class RemoveFromCartTests {
         int productsToRemove = 1;
         loginPage.login(username, password);
         mainPage.addProductsToCart(productsToAdd);
-        cartPage.openCart();
+        mainPage.openCart();
 
         int productsBeforeRemoval = cartPage.countNumberOfProductsInCart();
         cartPage.removeProductsFromCart(productsToRemove);
@@ -44,7 +44,7 @@ public class RemoveFromCartTests {
         int productsToAdd = 4;
         loginPage.login(username, password);
         mainPage.addProductsToCart(productsToAdd);
-        cartPage.openCart();
+        mainPage.openCart();
 
         int productsBeforeRemoval = cartPage.countNumberOfProductsInCart();
         cartPage.removeProductsFromCart(productsBeforeRemoval);

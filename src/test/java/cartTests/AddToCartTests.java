@@ -29,7 +29,7 @@ public class AddToCartTests {
         loginPage.login(username, password);
 
         mainPage.addProductsToCart(numberOfProducts);
-        cartPage.openCart();
+        mainPage.openCart();
 
         int actualCartItems = cartPage.countNumberOfProductsInCart();
         assertEquals(numberOfProducts, actualCartItems);
@@ -42,7 +42,7 @@ public class AddToCartTests {
         loginPage.login(username, password);
 
         mainPage.addProductsToCart(numberOfProducts);
-        cartPage.openCart();
+        mainPage.openCart();
 
         int actualCartItems = cartPage.countNumberOfProductsInCart();
         assertEquals(numberOfProducts, actualCartItems);

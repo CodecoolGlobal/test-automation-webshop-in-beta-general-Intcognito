@@ -18,7 +18,7 @@ public class LoginTests {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithValidUser(WebDriver driver) throws MalformedURLException {
+    public void testLoginWithValidUser(WebDriver driver) {
         loginPage = new LoginPage(driver);
 
         loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
@@ -31,7 +31,7 @@ public class LoginTests {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithInvalidUser(WebDriver driver) throws MalformedURLException {
+    public void testLoginWithInvalidUser(WebDriver driver) {
         loginPage = new LoginPage(driver);
 
         loginPage.login(System.getenv("LOCKED_OUT_USER"), System.getenv("PASSWORD"));
@@ -44,7 +44,7 @@ public class LoginTests {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLogoutFunction(WebDriver driver) throws MalformedURLException {
+    public void testLogoutFunction(WebDriver driver) {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 
