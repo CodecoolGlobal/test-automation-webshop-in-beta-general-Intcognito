@@ -1,5 +1,6 @@
 package productTests;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,16 +14,17 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProblemUserProductTests {
-    WebDriver chromeDriver = Util.setChromeCapability();
-    LoginPage loginPage = new LoginPage(chromeDriver);
-    MainPage mainPage = new MainPage(chromeDriver);
+    private final Dotenv dotenv = Dotenv.load();
+    private final WebDriver chromeDriver = Util.setChromeCapability();
+    private final LoginPage loginPage = new LoginPage(chromeDriver);
+    private final MainPage mainPage = new MainPage(chromeDriver);
 
     public ProblemUserProductTests() throws MalformedURLException {
     }
 
     @BeforeEach
     public void setUp() {
-        loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
+        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
     }
 
     @Test

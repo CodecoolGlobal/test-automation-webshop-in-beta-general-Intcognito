@@ -1,5 +1,6 @@
 package pages;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,7 @@ import java.time.Duration;
 public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
+    private final Dotenv dotenv = Dotenv.load();
     @FindBy(id = "user-name")
     private WebElement usernameField;
     @FindBy(id = "password")
@@ -24,13 +26,14 @@ public class LoginPage {
     private WebElement loginErrorMessage;
 
     public LoginPage(WebDriver driver) {
+        Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(System.getenv("WAIT_DURATION"))));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
         PageFactory.initElements(driver, this);
     }
 
     public void login(String username, String password) {
-        driver.get(System.getenv("BASE_URL"));
+        driver.get(dotenv.get("BASE_URL"));
         System.out.println("Navigated to webshop");
         fillUsername(username);
         fillPassword(password);

@@ -1,5 +1,6 @@
 package pages;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class CheckoutDetailsPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private WebDriver driver;
+    private WebDriverWait wait;
     @FindBy(id = "first-name")
     WebElement firstnameField;
     @FindBy(id = "last-name")
@@ -24,8 +25,9 @@ public class CheckoutDetailsPage {
     WebElement errorMessage;
 
     public CheckoutDetailsPage(WebDriver driver) {
+        Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(System.getenv("WAIT_DURATION"))));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
         PageFactory.initElements(driver, this);
     }
 
