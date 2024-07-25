@@ -35,11 +35,18 @@ public class MainPage {
     private WebElement productDetailsPrice;
     @FindBy(xpath = "//button[text() = 'Add to cart']")
     private WebElement addToCartButton;
+    @FindBy(xpath = "//a[@class = 'shopping_cart_link']")
+    private WebElement cartLink;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         PageFactory.initElements(driver, this);
+    }
+
+    public void openCart() {
+        wait.until(ExpectedConditions.elementToBeClickable(cartLink));
+        cartLink.click();
     }
 
     public void logout() {
@@ -52,7 +59,6 @@ public class MainPage {
 
     public void clickOnFirstItem() {
         wait.until(ExpectedConditions.elementToBeClickable(firstProductName));
-        System.out.println("CLICKING ON PRODUCT");
         firstProductName.click();
     }
 
