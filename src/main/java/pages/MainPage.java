@@ -33,6 +33,8 @@ public class MainPage {
     private WebElement productDetailsName;
     @FindBy(xpath = "//div[@class = 'inventory_details_price']")
     private WebElement productDetailsPrice;
+    @FindBy(xpath = "//button[text() = 'Add to cart']")
+    private WebElement addToCartButton;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -54,14 +56,16 @@ public class MainPage {
         firstProductName.click();
     }
 
+    public void addProductsToCart(int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+            addToCartButton.click();
+        }
+    }
+
     public boolean checkIfDetailsAreShown() {
         wait.until(ExpectedConditions.visibilityOf(productDetails));
         return productDetails.isDisplayed();
-    }
-
-    public String getProductPrice() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductPrice));
-        return firstProductPrice.getText();
     }
 
     public String getProductDetailsPrice() {
@@ -84,30 +88,31 @@ public class MainPage {
         return firstProductPrice.getText();
     }
 
-    private List<WebElement> getAllOptions(){
+    private List<WebElement> getAllOptions() {
         Select select = new Select(dropDown);
         return select.getOptions();
     }
 
-    private void sortProductsZtoA(){
+    private void sortProductsZtoA() {
         getAllOptions().get(1).click(); //steam().findany + param?
     }
 
-    public List<String> getSortedProductNamesZtoA(){
+    public List<String> getSortedProductNamesZtoA() {
         List<String> names = new ArrayList<>();
 
         List<WebElement> products = driver.findElements(By.className("inventory_item_name"));
-        for (WebElement product : products){
+        for (WebElement product : products) {
             names.add(product.getText());
         }
         names.sort(Collections.reverseOrder());
         return names;
     }
-    public List<String> getProductNames(){
+
+    public List<String> getProductNames() {
         List<String> names = new ArrayList<>();
 
         List<WebElement> products = driver.findElements(By.className("inventory_item_name"));
-        for (WebElement product : products){
+        for (WebElement product : products) {
             names.add(product.getText());
         }
 
