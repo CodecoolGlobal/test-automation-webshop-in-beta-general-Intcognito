@@ -25,7 +25,7 @@ public class CartPage {
     public CartPage(WebDriver driver) {
         Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(System.getenv("WAIT_DURATION"))));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
         PageFactory.initElements(driver, this);
     }
 

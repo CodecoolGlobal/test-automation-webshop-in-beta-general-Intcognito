@@ -1,5 +1,6 @@
 package pages;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,8 +40,9 @@ public class MainPage {
     private WebElement cartLink;
 
     public MainPage(WebDriver driver) {
+        Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
         PageFactory.initElements(driver, this);
     }
 

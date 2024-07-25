@@ -1,5 +1,6 @@
 package checkoutTests;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -12,13 +13,14 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckoutTests {
-    WebDriver chromeDriver = Util.setChromeCapability();
-    LoginPage loginPage = new LoginPage(chromeDriver);
-    MainPage mainPage = new MainPage(chromeDriver);
-    CartPage cartPage = new CartPage(chromeDriver);
-    CheckoutDetailsPage checkoutDetailsPage = new CheckoutDetailsPage(chromeDriver);
-    CheckoutPayPage checkoutPayPage = new CheckoutPayPage(chromeDriver);
-    CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage(chromeDriver);
+    private final Dotenv dotenv = Dotenv.load();
+    private final WebDriver chromeDriver = Util.setChromeCapability();
+    private final LoginPage loginPage = new LoginPage(chromeDriver);
+    private final MainPage mainPage = new MainPage(chromeDriver);
+    private final CartPage cartPage = new CartPage(chromeDriver);
+    private final CheckoutDetailsPage checkoutDetailsPage = new CheckoutDetailsPage(chromeDriver);
+    private final CheckoutPayPage checkoutPayPage = new CheckoutPayPage(chromeDriver);
+    private final CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage(chromeDriver);
 
     public CheckoutTests() throws MalformedURLException {
     }
@@ -27,7 +29,7 @@ public class CheckoutTests {
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
     public void buySingleProductAndCheckoutTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
+        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();
@@ -49,9 +51,9 @@ public class CheckoutTests {
         mainPage.openCart();
         cartPage.goToCheckout();
         checkoutDetailsPage.submitPersonalDetails(
-                System.getenv("FIRST_NAME"),
-                System.getenv("LAST_NAME"),
-                System.getenv("ZIP_CODE")
+                dotenv.get("FIRST_NAME"),
+                dotenv.get("LAST_NAME"),
+                dotenv.get("ZIP_CODE")
         );
         checkoutPayPage.finishPurchase();
 
@@ -63,7 +65,7 @@ public class CheckoutTests {
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
     public void buySingleProductWithQuestionableDetailsTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
+        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();
@@ -79,7 +81,7 @@ public class CheckoutTests {
     @CsvFileSource(resources = "/checkoutIncompleteDetails.csv", numLinesToSkip = 1)
     public void buySingleItemWithMissingPersonalDetailsTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(System.getenv("STANDARD_USER"), System.getenv("PASSWORD"));
+        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();
