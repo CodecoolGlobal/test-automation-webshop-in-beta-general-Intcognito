@@ -13,13 +13,14 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-public class ProblemUserProductTests {  // duplicated class, should be deleted
+
+public class StandardUserProductTest {
     private final Dotenv dotenv = Dotenv.load();
     private final WebDriver chromeDriver = Util.setChromeCapability();
     private final LoginPage loginPage = new LoginPage(chromeDriver);
     private final MainPage mainPage = new MainPage(chromeDriver);
 
-    public ProblemUserProductTests() throws MalformedURLException {
+    public StandardUserProductTest() throws MalformedURLException {
     }
 
     @BeforeEach

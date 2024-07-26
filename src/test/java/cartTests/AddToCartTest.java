@@ -13,13 +13,13 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AddToCartTests {
+public class AddToCartTest {
     WebDriver firefoxDriver = Util.setFirefoxCapability();
     LoginPage loginPage = new LoginPage(firefoxDriver);
     MainPage mainPage = new MainPage(firefoxDriver);
     CartPage cartPage = new CartPage(firefoxDriver);
 
-    public AddToCartTests() throws MalformedURLException {
+    public AddToCartTest() throws MalformedURLException {
     }
 
     @ParameterizedTest

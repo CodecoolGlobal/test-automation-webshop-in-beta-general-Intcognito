@@ -13,13 +13,13 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RemoveFromCartTests {
+public class RemoveFromCartTest {
     WebDriver edgeDriver = Util.setEdgeCapability();
     LoginPage loginPage = new LoginPage(edgeDriver);
     MainPage mainPage = new MainPage(edgeDriver);
     CartPage cartPage = new CartPage(edgeDriver);
 
-    public RemoveFromCartTests() throws MalformedURLException {
+    public RemoveFromCartTest() throws MalformedURLException {
     }
 
     @ParameterizedTest

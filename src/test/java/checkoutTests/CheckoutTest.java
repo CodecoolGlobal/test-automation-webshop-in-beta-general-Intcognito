@@ -12,7 +12,7 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckoutTests {
+public class CheckoutTest {
     private final Dotenv dotenv = Dotenv.load();
     private final WebDriver chromeDriver = Util.setChromeCapability();
     private final LoginPage loginPage = new LoginPage(chromeDriver);
@@ -22,7 +22,7 @@ public class CheckoutTests {
     private final CheckoutPayPage checkoutPayPage = new CheckoutPayPage(chromeDriver);
     private final CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage(chromeDriver);
 
-    public CheckoutTests() throws MalformedURLException {
+    public CheckoutTest() throws MalformedURLException {
     }
 
     @ParameterizedTest

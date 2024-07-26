@@ -9,7 +9,7 @@ import pages.MainPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoginTests {
+public class LoginTest {
     private final Dotenv dotenv = Dotenv.load();
     private LoginPage loginPage;
     private MainPage mainPage;
