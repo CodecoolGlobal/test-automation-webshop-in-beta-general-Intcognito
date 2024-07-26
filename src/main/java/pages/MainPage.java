@@ -14,6 +14,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainPage {
     private WebDriver driver;
@@ -101,29 +102,53 @@ public class MainPage {
         return select.getOptions();
     }
 
-    private void sortProductsZtoA() {
-        getAllOptions().get(1).click(); //steam().findany + param?
+    public void clickSortProducts(String option) {
+        List<WebElement> allOptions = getAllOptions();
+        allOptions.stream()
+                .filter(webElement -> webElement.getText().equals(option))
+                .findFirst()
+                .ifPresent(WebElement::click);
     }
 
-    public List<String> getSortedProductNamesZtoA() {
+    public List<String> getProductsSortedInReverseOrder(String info) {
         List<String> names = new ArrayList<>();
-
-        List<WebElement> products = driver.findElements(By.className("inventory_item_name"));
+        List<String> priceList = new ArrayList<>();
+        List<WebElement> products = driver.findElements(By.className(info));
         for (WebElement product : products) {
-            names.add(product.getText());
+            if(product.getText().contains("$")){
+                priceList.add(product.getText().substring(1));
+            } else {
+                names.add(product.getText());
+            }
+        }
+        if(!priceList.isEmpty()){
+            List<String> sortedPrice = priceList.stream().map(Double::parseDouble)
+                    .sorted((a, b) -> Double.compare(b, a))
+                    .map(String::valueOf)
+                    .toList();
+            System.out.println(sortedPrice);
+            return sortedPrice;
         }
         names.sort(Collections.reverseOrder());
+        System.out.println(names);
         return names;
     }
 
-    public List<String> getProductNames() {
+    public List<String> getProductInfo(String info) {
         List<String> names = new ArrayList<>();
+        List<String> priceList = new ArrayList<>();
 
-        List<WebElement> products = driver.findElements(By.className("inventory_item_name"));
+        List<WebElement> products = driver.findElements(By.className(info));
         for (WebElement product : products) {
-            names.add(product.getText());
+            if(product.getText().contains("$")){
+                priceList.add(product.getText().substring(1));
+            } else {
+                names.add(product.getText());
+            }
         }
-
+        if(!priceList.isEmpty()){
+            return priceList;
+        }
         return names;
     }
 }
