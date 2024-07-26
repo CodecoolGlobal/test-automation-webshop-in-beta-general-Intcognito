@@ -15,13 +15,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainPageTest {
+public class MainPageTest {  // this class could include test cases about product filtering / searching
     private final Dotenv dotenv = Dotenv.load();
     private final WebDriver chromeDriver = Util.setChromeCapability();
     private final LoginPage loginPage = new LoginPage(chromeDriver);
     private final MainPage mainPage = new MainPage(chromeDriver);
 
-    public MainPageTest() throws MalformedURLException {
+    public BrowseProductTest() throws MalformedURLException {
     }
 
     @BeforeEach

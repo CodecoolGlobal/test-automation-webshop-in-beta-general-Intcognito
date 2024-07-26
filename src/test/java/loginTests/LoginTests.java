@@ -19,7 +19,7 @@ public class LoginTests {
     public void testLoginWithValidUser(WebDriver driver) {
 
         loginPage = new LoginPage(driver);
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));  // loginPage.loginSuccessful()
 
         boolean actual = loginPage.checkIfLoginIsSuccessful();
         assertTrue(actual);

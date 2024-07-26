@@ -43,11 +43,12 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
+        Duration waitSeconds = Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION")));
+        this.wait = new WebDriverWait(driver, waitSeconds);
         PageFactory.initElements(driver, this);
     }
 
-    public void openCart() {
+    public void openCart() {  // I recommend navigating with URL
         wait.until(ExpectedConditions.elementToBeClickable(cartLink));
         cartLink.click();
     }
@@ -77,7 +78,7 @@ public class MainPage {
         return productDetails.isDisplayed();
     }
 
-    public String getProductDetailsPrice() {
+    public String getProductDetailsPrice() {  // code repetition could be reduced with the usage of the private method below
         wait.until(ExpectedConditions.visibilityOf(productDetailsPrice));
         return productDetailsPrice.getText();
     }
@@ -93,8 +94,12 @@ public class MainPage {
     }
 
     public String getFirstProductPrice() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductPrice));
-        return firstProductPrice.getText();
+        return getDetail(firstProductPrice);
+    }
+
+    private String getDetail(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return elemet.getText();
     }
 
     private List<WebElement> getAllOptions() {
