@@ -16,7 +16,7 @@ public class LoginTest {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithValidUser(WebDriver driver) {
+    public void loginWithValidUserTest(WebDriver driver) {
 
         loginPage = new LoginPage(driver);
         loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));  // loginPage.loginSuccessful()
@@ -29,7 +29,7 @@ public class LoginTest {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithInvalidUser(WebDriver driver) {
+    public void loginWithInvalidUserTest(WebDriver driver) {
         loginPage = new LoginPage(driver);
 
         loginPage.login(dotenv.get("LOCKED_OUT_USER"), dotenv.get("PASSWORD"));
@@ -42,7 +42,7 @@ public class LoginTest {
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLogoutFunction(WebDriver driver) {
+    public void logoutFunctionTest(WebDriver driver) {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 
