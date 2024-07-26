@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainPage {
     private WebDriver driver;
@@ -78,19 +77,16 @@ public class MainPage {
         return productDetails.isDisplayed();
     }
 
-    public String getProductDetailsPrice() {  // code repetition could be reduced with the usage of the private method below
-        wait.until(ExpectedConditions.visibilityOf(productDetailsPrice));
-        return productDetailsPrice.getText();
+    public String getProductDetailsPrice() {
+        return getDetail(productDetailsPrice);
     }
 
     public String getProductDetailsName() {
-        wait.until(ExpectedConditions.visibilityOf(productDetailsName));
-        return productDetailsName.getText();
+        return getDetail(productDetailsName);
     }
 
     public String getFirstProductName() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductName));
-        return firstProductName.getText();
+        return getDetail(firstProductName);
     }
 
     public String getFirstProductPrice() {
@@ -99,7 +95,7 @@ public class MainPage {
 
     private String getDetail(WebElement element) {
         wait.until(ExpectedConditions.visibilityOf(element));
-        return elemet.getText();
+        return element.getText();
     }
 
     private List<WebElement> getAllOptions() {
