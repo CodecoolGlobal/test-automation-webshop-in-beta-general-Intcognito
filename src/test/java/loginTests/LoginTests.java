@@ -1,15 +1,11 @@
 package loginTests;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
-import pages.MainPage;
 import pages.LoginPage;
-import utils.Util;
-
-import java.net.MalformedURLException;
+import pages.MainPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,8 +17,8 @@ public class LoginTests {
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
     public void testLoginWithValidUser(WebDriver driver) {
-        loginPage = new LoginPage(driver);
 
+        loginPage = new LoginPage(driver);
         loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
 
         boolean actual = loginPage.checkIfLoginIsSuccessful();
@@ -59,16 +55,4 @@ public class LoginTests {
         driver.quit();
     }
 
-    @Test
-    public void testEdgeLogin() throws MalformedURLException {
-        WebDriver driver = Util.setEdgeCapability();
-        loginPage = new LoginPage(driver);
-
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
-
-        boolean actual = loginPage.checkIfLoginIsSuccessful();
-        assertTrue(actual);
-
-        driver.quit();
-    }
 }
