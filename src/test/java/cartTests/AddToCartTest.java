@@ -1,6 +1,5 @@
 package cartTests;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
@@ -14,17 +13,25 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddToCartTest {
-    WebDriver firefoxDriver = Util.setFirefoxCapability();
-    LoginPage loginPage = new LoginPage(firefoxDriver);
-    MainPage mainPage = new MainPage(firefoxDriver);
-    CartPage cartPage = new CartPage(firefoxDriver);
+    private WebDriver driver;
+    private LoginPage loginPage;
+    private MainPage mainPage;
+    private CartPage cartPage;
 
     public AddToCartTest() throws MalformedURLException {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void addOneProductToCartTest(String username, String password) {
+    @CsvFileSource(resources = "/allUsersWithDrivers.csv", numLinesToSkip = 1)
+    public void addOneProductToCartTest(
+            String username,
+            String password,
+            String browser) throws MalformedURLException {
+
+        driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
         int numberOfProducts = 1;
         loginPage.login(username, password);
 
@@ -33,11 +40,20 @@ public class AddToCartTest {
 
         int actualCartItems = cartPage.countNumberOfProductsInCart();
         assertEquals(numberOfProducts, actualCartItems);
+        driver.quit();
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void addThreeProductsToCartTest(String username, String password) {
+    @CsvFileSource(resources = "/allUsersWithDrivers.csv", numLinesToSkip = 1)
+    public void addThreeProductsToCartTest(
+            String username,
+            String password,
+            String browser) throws MalformedURLException {
+
+        driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
         int numberOfProducts = 3;
         loginPage.login(username, password);
 
@@ -46,10 +62,6 @@ public class AddToCartTest {
 
         int actualCartItems = cartPage.countNumberOfProductsInCart();
         assertEquals(numberOfProducts, actualCartItems);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        firefoxDriver.quit();
+        driver.quit();
     }
 }

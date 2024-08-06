@@ -1,7 +1,6 @@
 package checkoutTests;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
@@ -14,20 +13,32 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckoutTest {
     private final Dotenv dotenv = Dotenv.load();
-    private final WebDriver chromeDriver = Util.setChromeCapability();
-    private final LoginPage loginPage = new LoginPage(chromeDriver);
-    private final MainPage mainPage = new MainPage(chromeDriver);
-    private final CartPage cartPage = new CartPage(chromeDriver);
-    private final CheckoutDetailsPage checkoutDetailsPage = new CheckoutDetailsPage(chromeDriver);
-    private final CheckoutPayPage checkoutPayPage = new CheckoutPayPage(chromeDriver);
-    private final CheckoutCompletePage checkoutCompletePage = new CheckoutCompletePage(chromeDriver);
+    private LoginPage loginPage;
+    private MainPage mainPage;
+    private CartPage cartPage;
+    private CheckoutDetailsPage checkoutDetailsPage;
+    private CheckoutPayPage checkoutPayPage;
+    private CheckoutCompletePage checkoutCompletePage;
 
     public CheckoutTest() throws MalformedURLException {
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
-    public void buySingleProductAndCheckoutTest(String firstname, String lastname, String zipcode) {
+    public void buySingleProductAndCheckoutTest(
+            String firstname,
+            String lastname,
+            String zipcode,
+            String browser) throws MalformedURLException {
+
+        WebDriver driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+        checkoutDetailsPage = new CheckoutDetailsPage(driver);
+        checkoutPayPage = new CheckoutPayPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
+
         int numberOfProductsToBuy = 1;
         loginPage.loginSuccessful();
 
@@ -39,11 +50,24 @@ public class CheckoutTest {
 
         boolean isPurchaseSuccessful = checkoutCompletePage.checkIfPurchaseIsSuccessful();
         assertTrue(isPurchaseSuccessful);
+        driver.quit();
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void buySingleProductWithDifferentUsersTest(String username, String password) {
+    @CsvFileSource(resources = "/allUsersWithDrivers.csv", numLinesToSkip = 1)
+    public void buySingleProductWithDifferentUsersTest(
+            String username,
+            String password,
+            String browser) throws MalformedURLException {
+
+        WebDriver driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+        checkoutDetailsPage = new CheckoutDetailsPage(driver);
+        checkoutPayPage = new CheckoutPayPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
+
         int numberOfProductsToBuy = 1;
         loginPage.login(username, password);
 
@@ -59,11 +83,24 @@ public class CheckoutTest {
 
         boolean isPurchaseSuccessful = checkoutCompletePage.checkIfPurchaseIsSuccessful();
         assertTrue(isPurchaseSuccessful);
+        driver.quit();
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
-    public void buySingleProductWithQuestionableDetailsTest(String firstname, String lastname, String zipcode) {
+    public void buySingleProductWithQuestionableDetailsTest(
+            String firstname,
+            String lastname,
+            String zipcode,
+            String browser) throws MalformedURLException {
+
+        WebDriver driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+        checkoutDetailsPage = new CheckoutDetailsPage(driver);
+        checkoutPayPage = new CheckoutPayPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
         int numberOfProductsToBuy = 1;
         loginPage.loginSuccessful();
 
@@ -75,11 +112,24 @@ public class CheckoutTest {
 
         boolean isPurchaseSuccessful = checkoutCompletePage.checkIfPurchaseIsSuccessful();
         assertTrue(isPurchaseSuccessful);
+        driver.quit();
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/checkoutIncompleteDetails.csv", numLinesToSkip = 1)
-    public void buySingleItemWithMissingPersonalDetailsTest(String firstname, String lastname, String zipcode) {
+    public void buySingleItemWithMissingPersonalDetailsTest(
+            String firstname,
+            String lastname,
+            String zipcode,
+            String browser) throws MalformedURLException {
+
+        WebDriver driver = Util.driverSelector(browser).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+        checkoutDetailsPage = new CheckoutDetailsPage(driver);
+        checkoutPayPage = new CheckoutPayPage(driver);
+        checkoutCompletePage = new CheckoutCompletePage(driver);
         int numberOfProductsToBuy = 1;
         loginPage.loginSuccessful();
 
@@ -90,10 +140,6 @@ public class CheckoutTest {
 
         boolean isErrorMessageShown = checkoutDetailsPage.checkIfErrorMessageIsShown();
         assertTrue(isErrorMessageShown);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        chromeDriver.quit();
+        driver.quit();
     }
 }

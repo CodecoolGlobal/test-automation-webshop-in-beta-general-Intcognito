@@ -1,0 +1,16 @@
+username, password, browser
+standard_user, secret_sauce, chrome
+problem_user, secret_sauce, chrome
+performance_glitch_user, secret_sauce, chrome
+error_user, secret_sauce, chrome
+visual_user, secret_sauce, chrome
+standard_user, secret_sauce, firefox
+problem_user, secret_sauce, firefox
+performance_glitch_user, secret_sauce, firefox
+error_user, secret_sauce, firefox
+visual_user, secret_sauce, firefox
+standard_user, secret_sauce, edge
+problem_user, secret_sauce, edge
+performance_glitch_user, secret_sauce, edge
+error_user, secret_sauce, edge
+visual_user, secret_sauce, edge

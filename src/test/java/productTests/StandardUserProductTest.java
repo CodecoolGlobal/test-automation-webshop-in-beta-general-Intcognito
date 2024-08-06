@@ -1,13 +1,10 @@
 package productTests;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import pages.MainPage;
-import utils.Util;
 
 import java.net.MalformedURLException;
 
@@ -15,46 +12,51 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StandardUserProductTest {
-    private final WebDriver chromeDriver = Util.setChromeCapability();
-    private final LoginPage loginPage = new LoginPage(chromeDriver);
-    private final MainPage mainPage = new MainPage(chromeDriver);
+    private LoginPage loginPage;
+    private MainPage mainPage;
 
     public StandardUserProductTest() throws MalformedURLException {
     }
 
-    @BeforeEach
-    public void setUp() {
-        loginPage.loginSuccessful();
-    }
+    @ParameterizedTest
+    @MethodSource("utils.Util#driverProvider")
+    public void testIfProductDetailsAreShown(WebDriver driver) {
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
 
-    @Test
-    public void testIfProductDetailsAreShown() {
+        loginPage.loginSuccessful();
         mainPage.clickOnFirstItem();
 
         boolean isDetailedPageShown = mainPage.checkIfDetailsAreShown();
         assertTrue(isDetailedPageShown);
+        driver.quit();
     }
 
-    @Test
-    public void testIfProductDetailsNameIsCorrect() {
+    @ParameterizedTest
+    @MethodSource("utils.Util#driverProvider")
+    public void testIfProductDetailsNameIsCorrect(WebDriver driver) {
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+
         String inventoryProductName = mainPage.getFirstProductName();
         mainPage.clickOnFirstItem();
         String detailedProductName = mainPage.getProductDetailsName();
 
         assertEquals(inventoryProductName, detailedProductName);
+        driver.quit();
     }
 
-    @Test
-    public void testIfProductDetailsPriceIsCorrect() {
+    @ParameterizedTest
+    @MethodSource("utils.Util#driverProvider")
+    public void testIfProductDetailsPriceIsCorrect(WebDriver driver) {
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+
         String inventoryProductPrice = mainPage.getFirstProductPrice();
         mainPage.clickOnFirstItem();
         String detailedProductPrice = mainPage.getProductDetailsPrice();
 
         assertEquals(inventoryProductPrice, detailedProductPrice);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        chromeDriver.quit();
+        driver.quit();
     }
 }

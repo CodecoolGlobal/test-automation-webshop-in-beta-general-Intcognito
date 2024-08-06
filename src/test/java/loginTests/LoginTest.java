@@ -17,13 +17,11 @@ public class LoginTest {
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
     public void loginWithValidUserTest(WebDriver driver) {
-
         loginPage = new LoginPage(driver);
         loginPage.loginSuccessful();
 
         boolean actual = loginPage.checkIfLoginIsSuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 
@@ -36,7 +34,6 @@ public class LoginTest {
 
         boolean actual = loginPage.checkIfLoginIsUnsuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 
@@ -51,7 +48,6 @@ public class LoginTest {
 
         boolean actual = loginPage.checkIfLogoutIsSuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 

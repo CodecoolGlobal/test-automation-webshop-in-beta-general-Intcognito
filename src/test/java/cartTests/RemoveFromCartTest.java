@@ -1,6 +1,5 @@
 package cartTests;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.openqa.selenium.WebDriver;
@@ -14,17 +13,21 @@ import java.net.MalformedURLException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RemoveFromCartTest {
-    WebDriver edgeDriver = Util.setEdgeCapability();
-    LoginPage loginPage = new LoginPage(edgeDriver);
-    MainPage mainPage = new MainPage(edgeDriver);
-    CartPage cartPage = new CartPage(edgeDriver);
+    private LoginPage loginPage;
+    private MainPage mainPage;
+    private CartPage cartPage;
 
     public RemoveFromCartTest() throws MalformedURLException {
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void removeSingleProductFromCartTest(String username, String password) {
+    @CsvFileSource(resources = "/threeUsersWithDrivers.csv", numLinesToSkip = 1)
+    public void removeSingleProductFromCartTest(String username, String password, String driverName) throws MalformedURLException {
+        WebDriver driver = Util.driverSelector(driverName).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+
         int productsToAdd = 4;
         int productsToRemove = 1;
         loginPage.login(username, password);
@@ -36,11 +39,17 @@ public class RemoveFromCartTest {
 
         int productsAfterRemoval = cartPage.countNumberOfProductsInCart();
         assertEquals(productsBeforeRemoval, (productsAfterRemoval + productsToRemove));
+        driver.quit();
     }
 
     @ParameterizedTest
-    @CsvFileSource(resources = "/userCredentials.csv", numLinesToSkip = 1)
-    public void removeAllProductsFromCart(String username, String password) {
+    @CsvFileSource(resources = "/threeUsersWithDrivers.csv", numLinesToSkip = 1)
+    public void removeAllProductsFromCart(String username, String password, String driverName) throws MalformedURLException {
+        WebDriver driver = Util.driverSelector(driverName).get();
+        loginPage = new LoginPage(driver);
+        mainPage = new MainPage(driver);
+        cartPage = new CartPage(driver);
+
         int productsToAdd = 4;
         loginPage.login(username, password);
         mainPage.addProductsToCart(productsToAdd);
@@ -51,10 +60,6 @@ public class RemoveFromCartTest {
 
         int productsAfterRemoval = cartPage.countNumberOfProductsInCart();
         assertEquals(0, productsAfterRemoval);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        edgeDriver.quit();
+        driver.quit();
     }
 }
