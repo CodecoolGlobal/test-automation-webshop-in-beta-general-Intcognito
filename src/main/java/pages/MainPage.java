@@ -47,9 +47,12 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void openCart() {  // I recommend navigating with URL
-        wait.until(ExpectedConditions.elementToBeClickable(cartLink));
-        cartLink.click();
+    public void openCart() {
+        Dotenv dotenv = Dotenv.load();
+        String cartUrl = dotenv.get("CART_URL");
+
+        driver.get(cartUrl);
+        wait.until(ExpectedConditions.urlToBe(cartUrl));
     }
 
     public void logout() {
