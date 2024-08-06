@@ -40,6 +40,16 @@ public class LoginPage {
         submitCredentials();
     }
 
+    public void loginSuccessful() {
+        String baseURL = dotenv.get("BASE_URL");
+        String username = dotenv.get("STANDARD_USER");
+        String password = dotenv.get("PASSWORD");
+        driver.get(baseURL);
+        fillUsername(username);
+        fillPassword(password);
+        submitCredentials();
+    }
+
     public boolean checkIfLoginIsSuccessful() {
         wait.until(ExpectedConditions.visibilityOf(menuButton));
         return menuButton.isDisplayed();
