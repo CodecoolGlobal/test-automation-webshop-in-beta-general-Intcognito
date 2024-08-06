@@ -19,7 +19,7 @@ public class LoginTest {
     public void loginWithValidUserTest(WebDriver driver) {
 
         loginPage = new LoginPage(driver);
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));  // loginPage.loginSuccessful()
+        loginPage.loginSuccessful();
 
         boolean actual = loginPage.checkIfLoginIsSuccessful();
         assertTrue(actual);
@@ -46,7 +46,7 @@ public class LoginTest {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
         mainPage.logout();
 
         boolean actual = loginPage.checkIfLogoutIsSuccessful();

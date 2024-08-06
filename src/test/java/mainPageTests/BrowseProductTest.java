@@ -15,8 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainPageTest {  // this class could include test cases about product filtering / searching
-    private final Dotenv dotenv = Dotenv.load();
+public class BrowseProductTest {  // this class could include test cases about product filtering / searching
     private final WebDriver chromeDriver = Util.setChromeCapability();
     private final LoginPage loginPage = new LoginPage(chromeDriver);
     private final MainPage mainPage = new MainPage(chromeDriver);
@@ -26,7 +25,7 @@ public class MainPageTest {  // this class could include test cases about produc
 
     @BeforeEach
     public void setUp() {
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
     }
 
     @ParameterizedTest

@@ -29,7 +29,7 @@ public class CheckoutTest {
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
     public void buySingleProductAndCheckoutTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();
@@ -65,7 +65,7 @@ public class CheckoutTest {
     @CsvFileSource(resources = "/checkoutPersonalDetails.csv", numLinesToSkip = 1)
     public void buySingleProductWithQuestionableDetailsTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();
@@ -81,7 +81,7 @@ public class CheckoutTest {
     @CsvFileSource(resources = "/checkoutIncompleteDetails.csv", numLinesToSkip = 1)
     public void buySingleItemWithMissingPersonalDetailsTest(String firstname, String lastname, String zipcode) {
         int numberOfProductsToBuy = 1;
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
 
         mainPage.addProductsToCart(numberOfProductsToBuy);
         mainPage.openCart();

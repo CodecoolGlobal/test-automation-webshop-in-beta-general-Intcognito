@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StandardUserProductTest {
-    private final Dotenv dotenv = Dotenv.load();
     private final WebDriver chromeDriver = Util.setChromeCapability();
     private final LoginPage loginPage = new LoginPage(chromeDriver);
     private final MainPage mainPage = new MainPage(chromeDriver);
@@ -25,7 +24,7 @@ public class StandardUserProductTest {
 
     @BeforeEach
     public void setUp() {
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
     }
 
     @Test
