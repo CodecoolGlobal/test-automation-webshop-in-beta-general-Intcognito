@@ -14,6 +14,8 @@ public class LoginPage {
     private WebDriver driver;
     private WebDriverWait wait;
     private final Dotenv dotenv = Dotenv.load();
+    private final String BASE_URL = dotenv.get("BASE_URL");
+    private final String HOME_URL = dotenv.get("HOME_URL");
     @FindBy(id = "user-name")
     private WebElement usernameField;
     @FindBy(id = "password")
@@ -33,11 +35,23 @@ public class LoginPage {
     }
 
     public void login(String username, String password) {
-        driver.get(dotenv.get("BASE_URL"));
-        System.out.println("Navigated to webshop");
+        driver.get(BASE_URL);
+        System.out.println("Navigated to login page");
         fillUsername(username);
         fillPassword(password);
         submitCredentials();
+    }
+
+    public void loginSuccessful() {
+        String username = dotenv.get("STANDARD_USER");
+        String password = dotenv.get("PASSWORD");
+        driver.get(BASE_URL);
+        fillUsername(username);
+        fillPassword(password);
+        submitCredentials();
+
+        wait.until(ExpectedConditions.urlToBe(HOME_URL));
+        System.out.println("Successfully logged in");
     }
 
     public boolean checkIfLoginIsSuccessful() {

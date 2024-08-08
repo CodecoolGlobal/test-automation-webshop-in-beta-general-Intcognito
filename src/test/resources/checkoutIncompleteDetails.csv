@@ -1,5 +1,13 @@
-firstname, lastname, zipcode
-John,, 11155
-, Doe, 11555
-John, Doe,
-,,,
+firstname, lastname, zipcode, browser
+John,, 11155, chrome
+, Doe, 11555, chrome
+John, Doe,, chrome
+,,, chrome
+John,, 11155, firefox
+, Doe, 11555, firefox
+John, Doe,, firefox
+,,, firefox
+John,, 11155, edge
+, Doe, 11555, edge
+John, Doe,, edge
+,,, edge

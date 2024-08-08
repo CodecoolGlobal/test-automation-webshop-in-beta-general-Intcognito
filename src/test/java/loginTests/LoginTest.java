@@ -9,49 +9,45 @@ import pages.MainPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class LoginTests {
+public class LoginTest {
     private final Dotenv dotenv = Dotenv.load();
     private LoginPage loginPage;
     private MainPage mainPage;
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithValidUser(WebDriver driver) {
-
+    public void loginWithValidUserTest(WebDriver driver) {
         loginPage = new LoginPage(driver);
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
 
         boolean actual = loginPage.checkIfLoginIsSuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLoginWithInvalidUser(WebDriver driver) {
+    public void loginWithInvalidUserTest(WebDriver driver) {
         loginPage = new LoginPage(driver);
 
         loginPage.login(dotenv.get("LOCKED_OUT_USER"), dotenv.get("PASSWORD"));
 
         boolean actual = loginPage.checkIfLoginIsUnsuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 
     @ParameterizedTest
     @MethodSource("utils.Util#driverProvider")
-    public void testLogoutFunction(WebDriver driver) {
+    public void logoutFunctionTest(WebDriver driver) {
         loginPage = new LoginPage(driver);
         mainPage = new MainPage(driver);
 
-        loginPage.login(dotenv.get("STANDARD_USER"), dotenv.get("PASSWORD"));
+        loginPage.loginSuccessful();
         mainPage.logout();
 
         boolean actual = loginPage.checkIfLogoutIsSuccessful();
         assertTrue(actual);
-
         driver.quit();
     }
 

@@ -14,7 +14,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MainPage {
     private WebDriver driver;
@@ -43,13 +42,17 @@ public class MainPage {
     public MainPage(WebDriver driver) {
         Dotenv dotenv = Dotenv.load();
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION"))));
+        Duration waitSeconds = Duration.ofSeconds(Integer.parseInt(dotenv.get("WAIT_DURATION")));
+        this.wait = new WebDriverWait(driver, waitSeconds);
         PageFactory.initElements(driver, this);
     }
 
     public void openCart() {
-        wait.until(ExpectedConditions.elementToBeClickable(cartLink));
-        cartLink.click();
+        Dotenv dotenv = Dotenv.load();
+        String cartUrl = dotenv.get("CART_URL");
+
+        driver.get(cartUrl);
+        wait.until(ExpectedConditions.urlToBe(cartUrl));
     }
 
     public void logout() {
@@ -78,23 +81,24 @@ public class MainPage {
     }
 
     public String getProductDetailsPrice() {
-        wait.until(ExpectedConditions.visibilityOf(productDetailsPrice));
-        return productDetailsPrice.getText();
+        return getDetail(productDetailsPrice);
     }
 
     public String getProductDetailsName() {
-        wait.until(ExpectedConditions.visibilityOf(productDetailsName));
-        return productDetailsName.getText();
+        return getDetail(productDetailsName);
     }
 
     public String getFirstProductName() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductName));
-        return firstProductName.getText();
+        return getDetail(firstProductName);
     }
 
     public String getFirstProductPrice() {
-        wait.until(ExpectedConditions.visibilityOf(firstProductPrice));
-        return firstProductPrice.getText();
+        return getDetail(firstProductPrice);
+    }
+
+    private String getDetail(WebElement element) {
+        wait.until(ExpectedConditions.visibilityOf(element));
+        return element.getText();
     }
 
     private List<WebElement> getAllOptions() {

@@ -1,4 +1,8 @@
-info, option
-inventory_item_price, Price (high to low)
-inventory_item_name, Name (Z to A)
+info, option, browser
+inventory_item_price, Price (high to low), chrome
+inventory_item_name, Name (Z to A), chrome
+inventory_item_price, Price (high to low), firefox
+inventory_item_name, Name (Z to A), firefox
+inventory_item_price, Price (high to low), edge
+inventory_item_name, Name (Z to A), edge
 

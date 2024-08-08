@@ -1,4 +1,10 @@
-firstname, lastname, zipcode
-John, Doe, 11155
-Verylongfirstname, Verylonglastname, 1234567890
-J, D, 1
+firstname, lastname, zipcode, browser
+John, Doe, 11155, chrome
+Verylongfirstname, Verylonglastname, 1234567890, chrome
+J, D, 1, chrome
+John, Doe, 11155, firefox
+Verylongfirstname, Verylonglastname, 1234567890, firefox
+J, D, 1, firefox
+John, Doe, 11155, edge
+Verylongfirstname, Verylonglastname, 1234567890, edge
+J, D, 1, edge
