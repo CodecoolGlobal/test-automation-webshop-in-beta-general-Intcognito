@@ -23,40 +23,49 @@ The project follows the page object model (POM).
 
 ## Installation guide:
 
-### Prerequisits
+### Prerequisits:
 
 - **JDK** 17 or higher
 - **Maven** 3.9.6 or higher
 - **Docker** 4.28.0 or higher
 
 ### Technologies used:
-- ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)(https://www.java.com/en/)
-- JUnit
-- ![Selenium](https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white)(https://www.selenium.dev/)
-- Selenium GRID
-- ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)(https://www.docker.com/)
-- ![Apache Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)(https://maven.apache.org/)
+- [![Java][javaShield]][javaLink]
+- [![Selenium][seleniumShield]][seleniumLink]
+- [![Docker][dockerShield]][dockerLink]
+- [![Apache Maven][mavenShield]][mavenLink]
 
 ### How to run:
 1. Clone the Selenium GRID repository:
 ```sh
-git clone https://github.com/SeleniumHQ/docker-selenium
+git clone https://github.com/CodecoolGlobal/test-automation-webshop-in-beta-general-Intcognito
 ```
-2. Build 
+2. Navigate to root directory:
 ```sh
-mvn clean package
+cd dir
 ```
-3. Run:
+3. Build:
+```sh
+docker compose up
+```
+4. Run:
 ```sh
 java -jar backend/target/webshop.jar
 ```
-4. Clone project
-5. Build project
-6. Setup environmental variables
 
 ## Contact
 
-- Fazekas Gergő - ímélcím
+- Fazekas Gergő - gefazekas92@gmail.com
 - Gömöri Dávid - gomori.david@gmail.com
 
 Project - https://github.com/CodecoolGlobal/test-automation-webshop-in-beta-general-Intcognito
+
+<!-- Links and images -->
+[javaShield]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
+[javaLink]: https://www.java.com/en/
+[seleniumShield]: https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white
+[seleniumLink]: https://www.selenium.dev/
+[dockerShield]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[dockerLink]: https://www.docker.com/
+[mavenShield]: https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white
+[mavenLink]: https://maven.apache.org/
