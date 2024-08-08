@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BrowseProductTest {  // this class could include test cases about product filtering / searching
+public class BrowseProductTest {
     private LoginPage loginPage;
     private MainPage mainPage;
 
