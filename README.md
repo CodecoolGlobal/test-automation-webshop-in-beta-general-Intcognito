@@ -25,8 +25,6 @@ The project follows the page object model (POM).
 
 ### Prerequisits:
 
-- **JDK** 17 or higher
-- **Maven** 3.9.6 or higher
 - **Docker** 4.28.0 or higher
 
 ### Technologies used:
