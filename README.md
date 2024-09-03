@@ -1,5 +1,5 @@
 # Webshop in beta
-## SUT:
+## System Under Test:
 In this project we are testing a legacy webshop that sells clothes and accessories. The main focus is to test essential features like: register, login, add items to cart and checkout (buy them).
 
 ### Webpage:
@@ -56,7 +56,6 @@ java -jar backend/target/webshop.jar
 - Fazekas Gergő - gefazekas92@gmail.com
 - Gömöri Dávid - gomori.david@gmail.com
 
-Project - https://github.com/CodecoolGlobal/test-automation-webshop-in-beta-general-Intcognito
 
 <!-- Links and images -->
 [javaShield]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white
